@@ -1,0 +1,25 @@
+---
+- name: Deploy Docker Container
+  hosts: all
+  become: yes
+  tasks:
+    - name: Pull Docker image
+      docker_image:
+        name: "{{ docker_image }}:{{ docker_tag }}"
+        source: pull
+        force_source: yes
+
+    - name: Stop existing container
+      docker_container:
+        name: demo-app
+        state: absent
+      ignore_errors: yes
+
+    - name: Run Docker container
+      docker_container:
+        name: demo-app
+        image: "{{ docker_image }}:{{ docker_tag }}"
+        state: started
+        ports:
+          - "3000:3000"
+        restart_policy: always
