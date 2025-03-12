@@ -10,6 +10,7 @@ pipeline {
         DOCKER_IMAGE = "avichaye/docker-demo-app"
         // Sets the version tag
         DOCKER_TAG = "v1.0"
+        ANSIBLE_SUDO_PASS = credentials('ansible_sudo_pass')
     }
     
     // Define the pipeline stages
